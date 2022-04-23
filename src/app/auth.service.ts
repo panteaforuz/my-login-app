@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,12 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
-  loginUser(username:string , password:string){
+  loginUser(payload:any){
     return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/doLogin', {
       "loadUserInfo":true,
       "loadUserRoles":true,
-      "pass":password,
-      "user":username,
+      "pass":payload.password,
+      "user":payload.username,
       "method":"PASS"
     }, {
       headers: new HttpHeaders({
@@ -23,5 +24,8 @@ export class AuthService {
       withCredentials: true
     });
   }
+  logout(): Observable<null> {
+    return of(null);
+}
   
 }
