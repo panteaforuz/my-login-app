@@ -1,9 +1,6 @@
-<div *ngIf="!isLoggedIn" class="main">
+
     <h1>Hi Welcome</h1>
     <img src="https://demo2.rrr.co.ir/plus/assets/images/desktopImg.png" alt="homepage" class="desktop">
-    <div *ngIf="isLoginError" class="red-text center error-massage">
-        incorrect username or password
-    </div>
     <form #loginForm="ngForm" class="col s12 white" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
         <div class="container mt-5">
             <div class="row d-flex justify-content-center">
@@ -25,8 +22,6 @@
                 </div>
             </div>
         </div>
-    </form>
-  </div>      
-  <!-- <app-home-page *ngIf="isLoggedIn" firstName={{firstName}}  lastName={{lastName}} ></app-home-page>       -->
+    </form>     
     
                 

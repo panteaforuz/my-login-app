@@ -24,8 +24,18 @@ export class AuthService {
       withCredentials: true
     });
   }
-  logout(): Observable<null> {
-    return of(null);
-}
-  
+  logout(){
+    return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/logout',{
+      headers: new HttpHeaders({
+        'X-Angular-Client': 'hamkelasiPlusDebug'
+      })
+    })
+  }
+  hasLogined(){
+    return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/hasLogined',{
+      headers: new HttpHeaders({
+        'X-Angular-Client': 'hamkelasiPlusDebug'
+      })
+    })
+  }
 }

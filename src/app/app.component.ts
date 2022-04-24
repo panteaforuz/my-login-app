@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofActionDispatched } from '@ngxs/store';
-import { Logout } from './actions/auth.action';
+import { Actions, Store, ofActionSuccessful } from '@ngxs/store';
+import { Login, Logout } from './actions/auth.action';
+import { AuthState } from './state/auth.state';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,33 @@ import { Logout } from './actions/auth.action';
 })
 export class AppComponent {
 
-  constructor(private actions: Actions, private router: Router) {}
+  constructor(private actions: Actions, private router: Router, private store :Store) {
+
+  }
 
   ngOnInit() {
-    this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => this.router.navigate(['/login']));
+    // console.log(AuthState.isAuthenticated+"hi")
+    //  if(this.store.selectSnapshot(AuthState.isAuthenticated))
+    //  {
+    //    this.router.navigate(['/home']);
+    //  }
+    //  this.actions.pipe(ofActionSuccessful(Logout)).subscribe(() => this.router.navigate(['/login']));
+    //  this.actions.pipe(ofActionSuccessful(Login)).subscribe((evt) => {
+    //    console.log('ok', evt);
+    //    this.router.navigate(['/home']);
+    //  });
+         
+    this.store.select(state => state.auth.isLoggedIn).subscribe((isLoggedIn) => {
+
+      if (isLoggedIn)
+      {
+        this.router.navigate(['/home']);
+      }
+      else
+      {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
 }

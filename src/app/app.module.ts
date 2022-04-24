@@ -9,14 +9,17 @@ import { MatInputModule} from '@angular/material/input';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
 import { HttpClientModule } from '@angular/common/http';
-import { MainComponent } from './main/main.component';  
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from './state/auth.state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './guard';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    HomePageComponent,
-    MainComponent
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -25,9 +28,13 @@ import { MainComponent } from './main/main.component';
     MatInputModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxsModule.forRoot([AuthState]),
+    NgxsStoragePluginModule.forRoot({
+      key: ['auth.isAuthenticated']
+    }),
   ],
-  providers: [],
+  providers: [AuthService , AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

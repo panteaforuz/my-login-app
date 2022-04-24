@@ -1,5 +1,7 @@
 import { Component, Injectable, OnInit ,Input} from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Logout } from 'src/app/actions/auth.action';
 
 @Injectable({ providedIn: 'root' })
 @Component({
@@ -13,15 +15,17 @@ export class HomePageComponent implements OnInit {
   @Input() lastName?: string ;
   loginDateTime?: string;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router , private store:Store) { }
 
   ngOnInit(): void {
   }
-  setUserData(resultParam : any):void{
-      this.firstName = resultParam.firstName
-      this.lastName = resultParam.lastName
-      this.loginDateTime = resultParam.serverDate +" "+resultParam.serverTime ;
-      this.router.navigate(['/home']);
-  }
-
+  // setUserData(resultParam : any):void{
+  //     this.firstName = resultParam.firstName
+  //     this.lastName = resultParam.lastName
+  //     this.loginDateTime = resultParam.serverDate +" "+resultParam.serverTime ;
+  //     this.router.navigate(['/home']);
+  // }
+  OnSubmit(){
+    this.store.dispatch(new Logout())
+}
 }
