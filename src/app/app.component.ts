@@ -18,22 +18,18 @@ export class AppComponent {
 
   ngOnInit() {
 
-    //  this.actions.pipe(ofActionSuccessful(Logout)).subscribe(() => this.router.navigate(['/login']));
-    //  this.actions.pipe(ofActionSuccessful(Login)).subscribe((evt) => {
-    //    console.log('ok', evt);
-    //    this.router.navigate(['/home']);
-    //  });
     this.authService.hasLogined().subscribe({
       next: (data:any) => {
         if(data.status === 0)
         {
           this.store.dispatch(new Login(data.params.username))
+          return true;
         }
-        else {
+        else 
+        {
           this.store.dispatch(new Logout())
-        }
-        window.alert(data.message);
-        return false;
+          return false;
+        }   
       },
       error:(err) => {
         console.log(err);
@@ -46,10 +42,10 @@ export class AppComponent {
       {
         this.router.navigate(['/home']);
       }
-      // else
-      // {
-      //   this.router.navigate(['/login']);
-      // }
+      else
+      {
+        this.router.navigate(['/login']);
+      }
     });
 
     // if(this.store.selectSnapshot(AuthState.isAuthenticated))
@@ -62,10 +58,5 @@ export class AppComponent {
     // }
   }
 }
-  // if (this.authService.hasLogined()){
-  //   this.router.navigate(['/home'])
-  // }else{
-  //   this.router.navigate(['/login'])
-  // }
 
 
