@@ -25,17 +25,21 @@ export class AuthService {
     });
   }
   logout(){
-    return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/logout',{
+    return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/logout',{}, {
       headers: new HttpHeaders({
-        'X-Angular-Client': 'hamkelasiPlusDebug'
-      })
+        'X-Angular-Client': 'hamkelasiPlusDebug',
+        'Content-Type': 'application/json; charset=utf-8;'
+      }),
+      withCredentials: true
     })
   }
   hasLogined(){
-    return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/hasLogined',{
+    return this.http.post('https://demo2.rrr.co.ir/hp/rest/hfw/authentication/hasLogined',{}, {
       headers: new HttpHeaders({
-        'X-Angular-Client': 'hamkelasiPlusDebug'
-      })
+        'X-Angular-Client': 'hamkelasiPlusDebug',
+        'Content-Type': 'application/json; charset=utf-8;'
+      }),
+      withCredentials: true
     })
   }
 }

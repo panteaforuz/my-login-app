@@ -2,6 +2,7 @@ import { Component, Injectable, OnInit ,Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Logout } from 'src/app/actions/auth.action';
+import {AuthState} from "../../state/auth.state";
 
 @Injectable({ providedIn: 'root' })
 @Component({
@@ -18,6 +19,12 @@ export class HomePageComponent implements OnInit {
   constructor(private router:Router , private store:Store) { }
 
   ngOnInit(): void {
+
+    // if(!this.store.selectSnapshot(AuthState.isAuthenticated))
+    // {
+    //   this.router.navigate(['/login']);
+    // }
+
   }
   // setUserData(resultParam : any):void{
   //     this.firstName = resultParam.firstName

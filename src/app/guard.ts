@@ -8,19 +8,20 @@ import { AuthService } from "./auth.service";
 export class AuthGuard implements CanActivate {
   constructor( private authService:AuthService , private router:Router) {}
 
-  canActivate() {   
-      
+  canActivate() {
+
     return this.authService.hasLogined().pipe(tap({
         next: (data:any) => {
             if(data.status === 0)
             {
                 return true
             }
-            this.router.navigateByUrl('/login');  
+            console.log("redirect diesnt work in activate")
+            this.router.navigateByUrl('/login');
             // throw Error;
             return false;
         },
-        error:(err) =>{  
+        error:(err) =>{
             // return err;
             return false;
         }
@@ -29,22 +30,3 @@ export class AuthGuard implements CanActivate {
   }
 
 }
-
-/*return this.authService.loginUser(action.payload).pipe(tap({
-            next: (data:any) => {
-                if(data.status === 0)
-                {
-                    ctx.patchState({
-                        username : action.payload.username,
-                        isLoggedIn : true 
-                    })                  
-                }
-                else
-                {
-                    window.alert(data.message)
-                    throw Error;
-                }
-            },
-            error:(err) =>{  
-        return err;
-        }   */

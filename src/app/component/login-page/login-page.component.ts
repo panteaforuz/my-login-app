@@ -1,8 +1,10 @@
-import { Component, OnInit,Injectable } from '@angular/core'; 
+import { Component, OnInit,Injectable } from '@angular/core';
 import { Store } from '@ngxs/store'
 import { AuthService } from 'src/app/auth.service';
 import { HomePageComponent } from 'src/app/component/home-page/home-page.component';
 import { Login } from 'src/app/actions/auth.action';
+import {AuthState} from "../../state/auth.state";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -12,9 +14,15 @@ import { Login } from 'src/app/actions/auth.action';
 @Injectable({ providedIn: 'root' })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private authService: AuthService, private store:Store) { }
+  constructor(private router:Router, private authService: AuthService, private store:Store) { }
 
   ngOnInit(): void {
+
+    if(this.store.selectSnapshot(AuthState.isAuthenticated))
+    {
+      this.router.navigate(['/home']);
+    }
+
   }
 
   OnSubmit(username:string, password:string){
@@ -41,4 +49,3 @@ export class LoginPageComponent implements OnInit {
   //   return this.userData;
   // }
  }
- 
